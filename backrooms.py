@@ -9,6 +9,7 @@ def clear():
         _ = os.system("clear")
 
 levelNum = 0
+msg = ""
 
 def death(reason):
     global levelNum
@@ -25,7 +26,10 @@ def death(reason):
 
 def level(num):
     global levelNum
+    global msg
     checkTime = time.time()
+    if msg != "":
+        print(msg)
     sel = input(f"Level {levelNum}: ")
 
     if sel == "select":
@@ -155,6 +159,68 @@ def level(num):
         elif sel == "enter restart door":
             levelNum = "0!, \"White Light\""
     
+    # Entrences:
+    # Level 4.3, rotten wooden door
+    # The Hub, moldy door
+    elif num == 0.11:
+        good = 0
+        if sel == "walk back":
+            levelNum = 0
+        
+        ranInt = random.randint(1, 7)
+        if ranInt <= 4:
+            good = 1
+        elif ranInt > 5:
+            death("an entity")
+        
+        if good == 1:
+            if sel == "open wooden door":
+                levelNum = 0
+            elif sel == "open office door":
+                levelNum = 4
+            elif sel == "enter flooded hole":
+                ranInt = random.randint(1, 2)
+                if ranInt == 1:
+                    levelNum = 8
+                else:
+                    levelNum = 7
+            elif sel == "walk and open door":
+                ranInt = random.randint(1, 5)
+                if ranInt == 5:
+                    levelNum = 0.7
+                else:
+                    msg = "You walk, but find no door"
+        
+    elif levelNum == 0.2:
+        good = 0
+        ranInt = random.randint(1, 20)
+        if ranInt <= 12:
+            good = 1
+        elif ranInt > 12:
+            death("turning into an Insanity")
+        
+        if good == 1:
+            if sel == "open door with round handle":
+                ranInt = random.randint(1, 5)
+                ranInt2 = random.randint(1, 20)
+                if ranInt2 == 20:
+                    levelNum = 1
+                elif ranInt == 1:
+                    levelNum = 0
+                elif ranInt == 2:
+                    levelNum = "0.0"
+                elif ranInt == 3:
+                    levelNum = 0.1
+                elif ranInt == 4:
+                    levelNum = 0.3
+                elif ranInt == 5:
+                    levelNum = 0.4
+            elif sel == "noclip":
+                ranInt = random.randint(1, 7)
+                if ranInt == 7:
+                    levelNum = -132
+
+
     else:
         print("You win!")
         x = input("Play again? (Y/N)")
