@@ -2,6 +2,22 @@ import random
 import os
 import time
 
+### Standardization ###
+
+# random.randint(1, 10) #
+# Level 1: 10 unsafe, else safe
+# Level 2: > 8 unsafe, else safe
+# Level 3: >= 7 unsafe, else safe
+# Level 4: >= 5 unsafe, else safe
+
+# random.randint(1, 20) #
+# Level 5: <= 12 unsafe, else safe
+# Level 6: <= 14 unsafe, else safe
+# Level 7: <= 17 unsafe, else safe
+
+# random.randint(1, 30) #
+# Level Death: <= 26 unsafe, else safe
+
 def clear():
     if os.name == "nt":
         _ = os.system("cls")
@@ -37,6 +53,10 @@ def level(num):
     if num == "select":
         levelNum = sel
 
+    ranLev = random.randint(1, 250)
+    if ranLev == 250:
+        levelNum = 0.3
+
     if num == 0:
         if sel == "walk":
             ranInt = random.randint(1, 27)
@@ -56,8 +76,10 @@ def level(num):
             levelNum = 0.034
         elif sel == "open childhood door":
             levelNum = 0.033
-        elif sel == "stop vent":
+        elif sel == "enter vent":
             levelNum = 0.1
+        elif sel == "open brown door":
+            levelNum = 0.22
         elif sel == "break floor":
             levelNum = 27
 
@@ -69,7 +91,7 @@ def level(num):
             if ranInt > 7:
                 levelNum = "0!, \"Red Light\""
         elif sel == "walk back":
-            levelNum == 0
+            levelNum = 0
     
     elif num == "0!, \"Red Light\"":
         if sel == "walk":
@@ -191,7 +213,7 @@ def level(num):
                 else:
                     msg = "You walk, but find no door"
         
-    elif levelNum == 0.2:
+    elif num == 0.2:
         good = 0
         ranInt = random.randint(1, 20)
         if ranInt <= 12:
@@ -220,6 +242,36 @@ def level(num):
                 if ranInt == 7:
                     levelNum = -132
 
+    elif num == 0.22:
+        good = 0
+        ranEnt = random.randint(1, 10)
+        if ranEnt == 10:
+            death()
+        else:
+            good = 1
+        
+        if good == 1:
+            if sel == "walk":
+                ranInt = random.randint(1, 10)
+                if ranInt > 6:
+                    levelNum = 0
+            elif sel == "enter vent":
+                levelNum = 3
+
+    elif num == 0.3:
+        good = 0
+        ranEnt = random.randint(1, 10)
+        if ranEnt >= 7:
+            death()
+        else:
+            good = 1
+
+        if good == 1:
+            if sel == "enter emergency door":
+                if random.randint(1, 2) == 1:
+                    levelNum = -1
+                else:
+                    levelNum = -2
 
     else:
         print("You win!")
