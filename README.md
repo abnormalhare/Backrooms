@@ -6,8 +6,8 @@ Backrooms Game in a Terminal
 2. Double-Click file
 
 # Levels Included
-0
-0! (All Zones)
+0  
+0! (All Zones)  
 0.03  
 0.032  
 0.033  
