@@ -154,6 +154,16 @@ def level(num):
             levelNum = 0.7
         elif sel == "enter restart door":
             levelNum = "0!, \"White Light\""
+    
+    else:
+        print("You win!")
+        x = input("Play again? (Y/N)")
+        x = x.lower()
+        if x == "y":
+            levelNum = 0
+        elif x == "n":
+            quit()
+
 while True:
     clear()
     level(levelNum)
