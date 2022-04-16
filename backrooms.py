@@ -42,6 +42,7 @@ def death(reason):
 
 def helpRooms(tabl):
     print("try typing", tabl[random.randint(0, len(tabl))])
+    time.sleep(2.5)
 
 def level(num):
     global levelNum
