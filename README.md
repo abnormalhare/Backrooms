@@ -8,8 +8,8 @@ Backrooms Game in a Terminal
 # Levels Included
 0
 0! (All Zones)
-0.03
-0.032
-0.033
-0.034
-0.1
+0.03  
+0.032  
+0.033  
+0.034  
+0.1  
