@@ -40,6 +40,9 @@ def death(reason):
     else:
         death(reason)
 
+def helpRooms(tabl):
+    print("try typing", tabl[random.randint(0, len(tabl))])
+
 def level(num):
     global levelNum
     global msg
@@ -58,7 +61,10 @@ def level(num):
         levelNum = 0.3
 
     if num == 0:
-        if sel == "walk":
+        if sel == "help":
+            helpRooms(["walk", "noclip", "open burnt door", "enter 2d houses", "open childhood door", "enter vent", "break floor"])
+
+        elif sel == "walk":
             ranInt = random.randint(1, 27)
             if ranInt >= 19:
                 levelNum = 1
@@ -86,7 +92,10 @@ def level(num):
     # Entrences: 
     # No-clipping in a bright area of Level 0.7
     elif num == "0!, \"White Light\"":
-        if sel == "walk":
+        if sel == "help":
+            helpRooms(["walk", "walk back"])
+        
+        elif sel == "walk":
             ranInt = random.randint(1, 10)
             if ranInt > 7:
                 levelNum = "0!, \"Red Light\""
@@ -94,7 +103,10 @@ def level(num):
             levelNum = 0
     
     elif num == "0!, \"Red Light\"":
-        if sel == "walk":
+        if sel == "help":
+            helpRooms(["walk", "walk back", "noclip"])
+
+        elif sel == "walk":
             ranInt = random.randint(1, 20)
             if ranInt > 14:
                 levelNum = "0!, \"Black Light\""
@@ -116,15 +128,21 @@ def level(num):
                 death("an entity")
     
     elif num == "0!, \"Black Light\"":
-        if sel == "walk back":
+        if sel == "help":
+            helpRooms(["walk back"])
+
+        elif sel == "walk back":
             ranInt = random.randint(1, 20)
             if ranInt > 15:
-                levelNum = "0!, \"White Light\""
+                levelNum = "0!, \"Red Light\""
             elif ranInt < 10:
                 death("an entity")
 
     elif num == 0.03:
-        if sel == "open moldy door":
+        if sel == "help":
+            helpRooms(["open moldy door", "open burnt door", "open childhood door"])
+
+        elif sel == "open moldy door":
             ranInt = random.randint(1, 8)
             if ranInt == 3:
                 levelNum = 0.032
@@ -144,7 +162,10 @@ def level(num):
                 death("an entity")
     
     elif num == 0.032:
-        if sel == "open garage door":
+        if sel == "help":
+            helpRooms(["open garage door"])
+
+        elif sel == "open garage door":
             ranInt = random.randint(1, 8)
             if ranInt == 3:
                 levelNum = 9
@@ -155,18 +176,29 @@ def level(num):
         checkTime2 = time.time()
         if checkTime2 - checkTime > 5:
             death("psychological damage")
-        if sel == "noclip under bed":
+            
+        if sel == "help":
+            helpRooms(["noclip under bed"])
+
+        elif sel == "noclip under bed":
             levelNum = 11
 
     elif num == 0.034:
         checkTime2 = time.time()
         if checkTime2 - checkTime > 5:
             death("the teddy bear's toxic fumes")
-        if sel == "enter mirror":
+        
+        if sel == "help":
+            helpRooms(["enter mirror"])
+
+        elif sel == "enter mirror":
             levelNum = 0
 
     elif num == 0.1:
-        if sel == "walk":
+        if sel == "help":
+            helpRooms(["walk", "enter restart door"])
+
+        elif sel == "walk":
             ranInt = random.randint(1, 20)
             if ranInt == 1:
                 levelNum = 1.5
@@ -186,7 +218,11 @@ def level(num):
     # The Hub, moldy door
     elif num == 0.11:
         good = 0
-        if sel == "walk back":
+
+        if sel == "help":
+            helpRooms(["walk back", "open wooden door", "open office door", "enter flooded hole", "walk and open door"])
+
+        elif sel == "walk back":
             levelNum = 0
         
         ranInt = random.randint(1, 7)
