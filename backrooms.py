@@ -26,6 +26,19 @@ def clear():
 
 levelNum = 0
 msg = ""
+playerItems = []
+
+def win():
+    global levelNum
+    print("You win!")
+    x = input("Play again? (Y/N)")
+    x = x.lower()
+    if x == "y":
+        levelNum = 0
+    elif x == "n":
+        quit()
+    else:
+        win()
 
 def death(reason):
     global levelNum
@@ -41,29 +54,37 @@ def death(reason):
         death(reason)
 
 def helpRooms(tabl):
-    print("try typing", tabl[random.randint(0, len(tabl))])
+    print("try typing \"" + tabl[random.randint(0, len(tabl))] + '"')
     time.sleep(2.5)
 
 def level(num):
+    ### set variables ###
     global levelNum
     global msg
     checkTime = time.time()
     if msg != "":
         print(msg)
+    msg = ""
     sel = input(f"Level {levelNum}: ")
 
-    if sel == "select":
-        levelNum = sel
-    if num == "select":
-        levelNum = sel
-
+    ### set level specific things ###
     ranLev = random.randint(1, 250)
     if ranLev == 250:
         levelNum = 0.3
+    elif ranLev == 249:
+        levelNum = 0.45
+        msg = "You got pulled down here by a hand on the ground!"
+
+    if sel == "use catatonia" and playerItems.count("catatonia") > 0:
+        ranInt = random.randint(1, 4)
+        if ranInt == 4:
+            levelNum = 0.4
+        else:
+            levelNum = 404
 
     if num == 0:
         if sel == "help":
-            helpRooms(["walk", "noclip", "open burnt door", "enter 2d houses", "open childhood door", "enter vent", "break floor"])
+            helpRooms(["walk", "noclip", "open burnt door", "enter 2d houses", "noclip through teddy bear", "open childhood door", "enter vent", "open brown door", "break floor"])
 
         elif sel == "walk":
             ranInt = random.randint(1, 27)
@@ -251,6 +272,9 @@ def level(num):
                     msg = "You walk, but find no door"
         
     elif num == 0.2:
+        if sel == "help":
+            helpRooms(["open door with round handle", "noclip"])
+            
         good = 0
         ranInt = random.randint(1, 20)
         if ranInt <= 12:
@@ -280,6 +304,9 @@ def level(num):
                     levelNum = -132
 
     elif num == 0.22:
+        if sel == "help":
+            helpRooms(["walk", "enter vent"])
+
         good = 0
         ranEnt = random.randint(1, 10)
         if ranEnt == 10:
@@ -296,6 +323,9 @@ def level(num):
                 levelNum = 3
 
     elif num == 0.3:
+        if sel == "help":
+            helpRooms(["open emergency door"])
+
         good = 0
         ranEnt = random.randint(1, 10)
         if ranEnt >= 7:
@@ -304,20 +334,70 @@ def level(num):
             good = 1
 
         if good == 1:
-            if sel == "enter emergency door":
+            if sel == "open emergency door":
                 if random.randint(1, 2) == 1:
                     levelNum = -1
                 else:
                     levelNum = -2
+            elif sel == "open employees only door":
+                levelNum = 0.3
+
+    # Entrences
+    # 3.1, broken trapdoor
+    # 0.9, noclip piping
+    # use catatonia
+    elif num == 0.4:
+        if sel == "help":
+            helpRooms(["break and enter window", "noclip in mold", "dig through floor with gear", "electrocute yourself", "open green door"])
+
+        good = 0
+        ranEnt = random.randint(1, 10)
+        if ranEnt >= 7:
+            death()
+        else:
+            good = 1
+
+        if good == 1:
+            if sel == "break and enter window":
+                levelNum = 1.5
+            elif sel == "noclip in mold":
+                levelNum = 2
+            elif sel == "dig through floor with gear":
+                levelNum = "The End"
+            elif sel == "electrocute yourself":
+                levelNum = 3
+            elif sel == "open green door":
+                levelNum = 18
+    
+    elif num == 0.45:
+        if sel == "help":
+            helpRooms(["walk"])
+        
+        good = 0
+        ranEnt = random.randint(1, 10)
+        if ranEnt > 8:
+            death()
+        else:
+            good = 1
+        
+        if good == 1:
+            if sel == "walk":
+                ranInt = random.randInt(1, 25)
+                if ranInt == 25:
+                    playerItems.append("a white door")
+                    msg = "You found a white door!"
+                elif ranInt == 24:
+                    levelNum = 0
+                    msg = "You found a key and teleported here!"
+            elif sel == "open white door" and playerItems.count("a white door") > 0:
+                levelNum = 0
+        try:
+            playerItems.remove("a white door")
+        except:
+            return
 
     else:
-        print("You win!")
-        x = input("Play again? (Y/N)")
-        x = x.lower()
-        if x == "y":
-            levelNum = 0
-        elif x == "n":
-            quit()
+        win()
 
 while True:
     clear()
